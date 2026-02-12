@@ -130,10 +130,10 @@ jobs:
 
       - name: Move artifacts to workspace root
         run: |
-          mv windows-msi/build/dist/*.msi .
-          mv macos-dmg/build/dist/*.dmg .
-          mv jar/build/libs/*-all.jar .
-          ls -la
+          find . -maxdepth 5 -name '*.msi' -exec mv {} . \;
+          find . -maxdepth 5 -name '*.dmg' -exec mv {} . \;
+          find . -maxdepth 5 -name '*-all.jar' -exec mv {} . \;
+          ls -la *.msi *.dmg *-all.jar 2>/dev/null || true
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
